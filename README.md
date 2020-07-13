@@ -9,8 +9,6 @@ Text Editor in Flutter for Android and iOS to help free write WYSIWYG HTML code 
 > To handle attach image this package give you another solution using image [Image Picker](https://pub.dev/packages/image_picker) at bottom of editor.
 > This package can't use enableinteractiveSelection from TextField, to handle that this package give you another solution using copy paste at bottom of editor.
 > Thank you for all your support.
-> 
-> Keep Fluttering!
 
 ## Setup
 
@@ -83,7 +81,7 @@ Parameter | Type | Default | Description
 **decoration** | BoxDecoration |  | Decoration editor
 **widthImage** | String | 100% | width of image picker
 **hint** | String | empty | Placeholder hint text
-**customToolbar** || String || empty || Add all available [Toolbar](https://summernote.org/deep-dive/#custom-toolbar-popover)
+**customToolbar** | String | empty | Add all available [Toolbar](https://summernote.org/deep-dive/#custom-toolbar-popover)
 
 ## License
 
