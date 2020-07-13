@@ -282,7 +282,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     <div id="summernote"></div>
     <script>
       \$("#summernote").summernote({
-        placeholder: 'Hello Bootstrap 4',
+        placeholder: 'Your text here...',
         tabsize: 2,
         toolbar: $toolbar
       });

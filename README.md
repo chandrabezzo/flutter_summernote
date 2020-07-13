@@ -1,14 +1,90 @@
-# flutter_summernote
+# Flutter Summernote
 
-A new Flutter package.
+Text Editor in Flutter for Android and iOS to help free write WYSIWYG HTML code based on Summernote 0.8.18 javascript wrapper.
 
-## Getting Started
+![demo example](https://github.com/chandrabezzo/flutter_summernote/blob/master/screenshoot/home.png) ![demo example](https://github.com/chandrabezzo/flutter_summernote/blob/master/screenshoot/attach.png)
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+# NOTICE
+> This package dependent to the [Official WebView Plugin](https://pub.dev/packages/webview_flutter). In this package can't add image, video, or another file using editor toolbar.
+> To handle attach image this package give you another solution using image [Image Picker](https://pub.dev/packages/image_picker) at bottom of editor.
+> This package can't use enableinteractiveSelection from TextField, to handle that this package give you another solution using copy paste at bottom of editor.
+> Thank you for all your support.
+> 
+> Keep Fluttering!
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+## Setup
+
+add ```flutter_summernote: ^0.1.0``` as deppendecy to pubspec.yaml
+
+### iOS
+
+Add the following keys to your Info.plist file, located in <project root>/ios/Runner/Info.plist:
+
+```
+    <key>io.flutter.embedded_views_preview</key>
+    <true/>
+
+    <key>NSCameraUsageDescription</key>
+    <string>Used to demonstrate image picker plugin</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Used to capture audio for image picker plugin</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Used to demonstrate image picker plugin</string>
+
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+         <true/>
+    </dict>
+```
+
+### Usage
+
+1. import flutter html editor
+```
+    import 'package:flutter_summernote/flutter_summernote.dart';
+```
+
+2. Create Global key from HTML Editor State
+```
+    GlobalKey<FlutterSummernoteState> _keyEditor = GlobalKey();
+```
+
+3. Add HTML Editor to widget
+```
+    FlutterSummernote(
+        hint: "Your text here...",
+        key: _keyEditor
+    ),
+    FlutterSummernote(
+        hint: "Your text here...",
+        key: _keyEditor,
+        customToolbar: """
+            [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']]
+            ]"""
+    )
+```
+
+4. Get text from Html Editor
+```
+    final _etEditor = await keyEditor.currentState.getText();
+```
+
+
+### Avalaible option parameters
+
+Parameter | Type | Default | Description
+------------ | ------------- | ------------- | -------------
+**key** | GlobalKey<HtmlEditorState> | **required** | for get method & reset
+**value** | String | empty | iniate text content for text editor
+**height** | double | 380 | height of text editor
+**decoration** | BoxDecoration |  | Decoration editor
+**widthImage** | String | 100% | width of image picker
+**hint** | String | empty | Placeholder hint text
+**customToolbar** || String || empty || Add all available [Toolbar](https://summernote.org/deep-dive/#custom-toolbar-popover)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
