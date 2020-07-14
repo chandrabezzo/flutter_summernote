@@ -265,7 +265,9 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
       toolbar = customToolbar;
     }
 
-    return '''<html lang="en">
+    return '''
+    <!DOCTYPE html>
+    <html lang="en">
     <head>
     <meta charset="UTF-8">
     <title>Summernote with Bootstrap 4</title>
@@ -288,7 +290,8 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
       });
     </script>
     </body>
-    </html>''';
+    </html>
+    ''';
   }
 
   String _defaultToolbar = """
