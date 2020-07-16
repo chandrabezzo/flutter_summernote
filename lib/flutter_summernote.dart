@@ -269,7 +269,8 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     <!DOCTYPE html>
     <html lang="en">
     <head>
-    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Summernote with Bootstrap 4</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -281,8 +282,8 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
     </head>
     <body>
-    <div id="summernote"></div>
-    <script>
+    <div id="summernote" contenteditable="true"></div>
+    <script type="text/javascript">
       \$("#summernote").summernote({
         placeholder: 'Your text here...',
         tabsize: 2,
