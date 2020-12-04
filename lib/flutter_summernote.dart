@@ -25,6 +25,7 @@ class FlutterSummernote extends StatefulWidget {
   final String widthImage;
   final String hint;
   final String customToolbar;
+  final bool hasAttachment;
 
   FlutterSummernote({
     Key key,
@@ -33,7 +34,8 @@ class FlutterSummernote extends StatefulWidget {
     this.decoration,
     this.widthImage:"100%",
     this.hint,
-    this.customToolbar
+    this.customToolbar,
+    this.hasAttachment:false
   }): super(key: key);
 
   @override
@@ -46,6 +48,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
   String _page;
   final Key _mapKey = UniqueKey();
   final _imagePicker = ImagePicker();
+  bool _hasAttachment;
 
   void handleRequest(HttpRequest request) {
     try {
@@ -62,6 +65,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     super.initState();
 
     _page = _initPage(widget.customToolbar);
+    _hasAttachment = widget.hasAttachment;
   }
 
   @override
@@ -167,27 +171,14 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
       )
     ];
 
-
-    bool usingAttachment = false;
-    //if custom toolbar have insert option, show attachment
-    if(widget.customToolbar != null) {
-      if (widget.customToolbar.contains("insert")) {
-        usingAttachment = true;
-      }
-    }else if(_defaultToolbar.contains("insert")){
-      usingAttachment = true;
-    }
-
-    if(usingAttachment){
+    if(_hasAttachment){
       //add attachment widget
       _toolbar.insert(0, Expanded(
         child: GestureDetector(
           onTap: () => _attach(context),
           child: Row(children: <Widget>[
             Icon(Icons.attach_file),
-            Text("Attachments",style: TextStyle(
-              fontSize: 11
-            ),)
+            Text("Attach")
           ], mainAxisAlignment: MainAxisAlignment.center),
         ),
       ));

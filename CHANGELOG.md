@@ -1,3 +1,6 @@
+## [0.2.0] - 2020-12-04
+* Add option to show and hide attachments
+
 ## [0.2.0] - 2020-07-17
 * Resolve editor dissapear in several device
 

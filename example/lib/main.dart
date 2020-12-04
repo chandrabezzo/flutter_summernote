@@ -56,12 +56,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: FlutterSummernote(
         hint: "Your text here...",
         key: _keyEditor,
-        // customToolbar: """
-        //   [
-        //     ['style', ['bold', 'italic', 'underline', 'clear']],
-        //     ['font', ['strikethrough', 'superscript', 'subscript']]
-        //   ]
-        // """,
+        hasAttachment: false,
+        customToolbar: """
+          [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['insert', ['link', 'table', 'hr']]
+          ]
+        """,
       ),
     );
   }

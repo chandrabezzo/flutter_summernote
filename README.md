@@ -81,7 +81,8 @@ Parameter | Type | Default | Description
 **decoration** | BoxDecoration |  | Decoration editor
 **widthImage** | String | 100% | width of image picker
 **hint** | String | empty | Placeholder hint text
-**customToolbar** | String | empty | Add all available [Toolbar](https://summernote.org/deep-dive/#custom-toolbar-popover)
+**customToolbar** | String | empty | Add all available [Toolbar](https://summernote.org/deep-dive/#custom-toolbar-popover). Don't use insert (video & picture), please use **hasAttachment** option.
+**hasAttachment** | Boolean | false | Use this option if yout want add attachment
 
 ## License
 
