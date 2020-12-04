@@ -12,7 +12,7 @@ Text Editor in Flutter for Android and iOS to help free write WYSIWYG HTML code 
 
 ## Setup
 
-add ```flutter_summernote: ^0.1.0``` as deppendecy to pubspec.yaml
+add ```flutter_summernote: ^latest``` as deppendecy to pubspec.yaml
 
 ### iOS
 
