@@ -1,5 +1,6 @@
-## [0.2.0] - 2020-12-04
+## [0.2.2] - 2020-12-04
 * Add option to show and hide attachments
+* Add option to show and hide bottom toolbar
 
 ## [0.2.0] - 2020-07-17
 * Resolve editor dissapear in several device

@@ -26,6 +26,7 @@ class FlutterSummernote extends StatefulWidget {
   final String hint;
   final String customToolbar;
   final bool hasAttachment;
+  final bool showBottomToolbar;
 
   FlutterSummernote({
     Key key,
@@ -35,7 +36,8 @@ class FlutterSummernote extends StatefulWidget {
     this.widthImage:"100%",
     this.hint,
     this.customToolbar,
-    this.hasAttachment:false
+    this.hasAttachment:false,
+    this.showBottomToolbar:true
   }): super(key: key);
 
   @override
@@ -121,9 +123,12 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(children: _generateBottomToolbar(context)),
+          Visibility(
+            visible: widget.showBottomToolbar,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(children: _generateBottomToolbar(context)),
+            ),
           )
         ],
       ),
