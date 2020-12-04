@@ -119,58 +119,81 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Row(children: <Widget>[
-              Expanded(
-                child: GestureDetector(
-                  onTap: () => _attach(context),
-                  child: Row(children: <Widget>[
-                    Icon(Icons.attach_file),
-                    Text("Attachments")
-                  ], mainAxisAlignment: MainAxisAlignment.center),
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () async {
-                    String data = await getText();
-                    Clipboard.setData(new ClipboardData(text: data));
-                  },
-                  child: Row(children: <Widget>[
-                    Icon(Icons.content_copy),
-                    Text("Copy")
-                  ], mainAxisAlignment: MainAxisAlignment.center),
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () async {
-                    ClipboardData data =
-                      await Clipboard.getData(Clipboard.kTextPlain);
-
-                    String txtIsi = data.text
-                        .replaceAll("'", '\\"')
-                        .replaceAll('"', '\\"')
-                        .replaceAll("[", "\\[")
-                        .replaceAll("]", "\\]")
-                        .replaceAll("\n", "<br/>")
-                        .replaceAll("\n\n", "<br/>")
-                        .replaceAll("\r", " ")
-                        .replaceAll('\r\n', " ");
-                    String txt =
-                        "\$('.note-editable').append( '" + txtIsi + "');";
-                    _controller.evaluateJavascript(txt);
-                  },
-                  child: Row(children: <Widget>[
-                    Icon(Icons.content_paste),
-                    Text("Paste")
-                  ], mainAxisAlignment: MainAxisAlignment.center),
-                ),
-              )
-            ]),
+            child: Row(children: _generateBottomToolbar(context)),
           )
         ],
       ),
     );
+  }
+
+  List<Widget> _generateBottomToolbar(BuildContext context){
+    var _toolbar = [
+      Expanded(
+        child: GestureDetector(
+          onTap: () async {
+            String data = await getText();
+            Clipboard.setData(new ClipboardData(text: data));
+          },
+          child: Row(children: <Widget>[
+            Icon(Icons.content_copy),
+            Text("Copy")
+          ], mainAxisAlignment: MainAxisAlignment.center),
+        ),
+      ),
+      Expanded(
+        child: GestureDetector(
+          onTap: () async {
+            ClipboardData data =
+            await Clipboard.getData(Clipboard.kTextPlain);
+
+            String txtIsi = data.text
+                .replaceAll("'", '\\"')
+                .replaceAll('"', '\\"')
+                .replaceAll("[", "\\[")
+                .replaceAll("]", "\\]")
+                .replaceAll("\n", "<br/>")
+                .replaceAll("\n\n", "<br/>")
+                .replaceAll("\r", " ")
+                .replaceAll('\r\n', " ");
+            String txt =
+                "\$('.note-editable').append( '" + txtIsi + "');";
+            _controller.evaluateJavascript(txt);
+          },
+          child: Row(children: <Widget>[
+            Icon(Icons.content_paste),
+            Text("Paste")
+          ], mainAxisAlignment: MainAxisAlignment.center),
+        ),
+      )
+    ];
+
+
+    bool usingAttachment = false;
+    //if custom toolbar have insert option, show attachment
+    if(widget.customToolbar != null) {
+      if (widget.customToolbar.contains("insert")) {
+        usingAttachment = true;
+      }
+    }else if(_defaultToolbar.contains("insert")){
+      usingAttachment = true;
+    }
+
+    if(usingAttachment){
+      //add attachment widget
+      _toolbar.insert(0, Expanded(
+        child: GestureDetector(
+          onTap: () => _attach(context),
+          child: Row(children: <Widget>[
+            Icon(Icons.attach_file),
+            Text("Attachments",style: TextStyle(
+              fontSize: 11
+            ),)
+          ], mainAxisAlignment: MainAxisAlignment.center),
+        ),
+      ));
+    }
+
+    return _toolbar;
   }
 
   JavascriptChannel getTextJavascriptChannel(BuildContext context) {
