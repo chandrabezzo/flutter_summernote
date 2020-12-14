@@ -27,6 +27,7 @@ class FlutterSummernote extends StatefulWidget {
   final String customToolbar;
   final bool hasAttachment;
   final bool showBottomToolbar;
+  final Function(String) returnContent;
 
   FlutterSummernote(
       {Key key,
@@ -37,7 +38,8 @@ class FlutterSummernote extends StatefulWidget {
       this.hint,
       this.customToolbar,
       this.hasAttachment: false,
-      this.showBottomToolbar: true})
+      this.showBottomToolbar: true,
+      this.returnContent})
       : super(key: key);
 
   @override
@@ -204,6 +206,9 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
           setState(() {
             text = isi;
           });
+          if (widget.returnContent != null) {
+            widget.returnContent(text);
+          }
         });
   }
 
