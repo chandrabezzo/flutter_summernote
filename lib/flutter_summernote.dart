@@ -288,7 +288,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     <!DOCTYPE html>
     <html lang="en">
     <head>
-    <meta name="viewport" content="user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Summernote</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
