@@ -76,14 +76,15 @@ Add the following keys to your Info.plist file, located in <project root>/ios/Ru
 Parameter | Type | Default | Description
 ------------ | ------------- | ------------- | -------------
 **key** | GlobalKey<HtmlEditorState> | **required** | for get method & reset
-**value** | String | empty | iniate text content for text editor
+**value** | String | empty | initiate text content for text editor
 **height** | double | 380 | height of text editor
 **decoration** | BoxDecoration | empty | Decoration editor
 **widthImage** | String | 100% | width of image picker
 **hint** | String | empty | Placeholder hint text
 **customToolbar** | String | empty | Add all available [Toolbar](https://summernote.org/deep-dive/#custom-toolbar-popover). Don't use insert (video & picture), please use **hasAttachment** option.
-**hasAttachment** | Boolean | false | Use this option if yout want to show or hide attachment button
-**showBottomToolbar** | Boolean | false | Use this option if yout want to show or hide bottom toolbar
+**customPopover** | String | empty | Add all available [Popover](https://summernote.org/deep-dive/#custom-toolbar-popover) (the same paragraph as for toolbar, but below)
+**hasAttachment** | Boolean | false | Use this option if you want to show or hide attachment button
+**showBottomToolbar** | Boolean | false | Use this option if you want to show or hide bottom toolbar
 
 ## License
 
