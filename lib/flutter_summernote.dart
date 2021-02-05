@@ -25,6 +25,7 @@ class FlutterSummernote extends StatefulWidget {
   final String widthImage;
   final String hint;
   final String customToolbar;
+  final String customPopover;
   final bool hasAttachment;
   final bool showBottomToolbar;
   final Function(String) returnContent;
@@ -37,6 +38,7 @@ class FlutterSummernote extends StatefulWidget {
       this.widthImage: "100%",
       this.hint,
       this.customToolbar,
+      this.customPopover,
       this.hasAttachment: false,
       this.showBottomToolbar: true,
       this.returnContent})
@@ -68,7 +70,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
   void initState() {
     super.initState();
 
-    _page = _initPage(widget.customToolbar);
+    _page = _initPage(widget.customToolbar, widget.customPopover);
     _hasAttachment = widget.hasAttachment;
   }
 
@@ -278,12 +280,18 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     );
   }
 
-  String _initPage(String customToolbar) {
+  String _initPage(String customToolbar, String customPopover) {
     String toolbar;
     if (customToolbar == null) {
       toolbar = _defaultToolbar;
     } else {
       toolbar = customToolbar;
+    }
+    String popover;
+    if (customPopover == null) {
+      popover = _defaultPopover;
+    } else {
+      popover = customPopover;
     }
 
     return '''
@@ -308,13 +316,36 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
       \$("#summernote").summernote({
         placeholder: 'Your text here...',
         tabsize: 2,
-        toolbar: $toolbar
+        toolbar: $toolbar,
+        popover: {$popover}
       });
     </script>
     </body>
     </html>
     ''';
   }
+
+  String _defaultPopover = """
+    image: [
+      ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
+      ['float', ['floatLeft', 'floatRight', 'floatNone']],
+      ['remove', ['removeMedia']]
+    ],
+    link: [
+      ['link', ['linkDialogShow', 'unlink']]
+    ],
+    table: [
+      ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
+      ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
+    ],
+    air: [
+      ['color', ['color']],
+      ['font', ['bold', 'underline', 'clear']],
+      ['para', ['ul', 'paragraph']],
+      ['table', ['table']],
+      ['insert', ['link', 'picture']]
+    ]
+""";
 
   String _defaultToolbar = """
     [
