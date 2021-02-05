@@ -85,6 +85,7 @@ Parameter | Type | Default | Description
 **customPopover** | String | empty | Add all available [Popover](https://summernote.org/deep-dive/#custom-toolbar-popover) (the same paragraph as for toolbar, but below)
 **hasAttachment** | Boolean | false | Use this option if you want to show or hide attachment button
 **showBottomToolbar** | Boolean | false | Use this option if you want to show or hide bottom toolbar
+**returnContent** | Function | null | Use this callback to return text content on `await keyEditor.currentState.getText()` function call.
 
 ## License
 

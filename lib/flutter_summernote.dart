@@ -28,6 +28,7 @@ class FlutterSummernote extends StatefulWidget {
   final String customPopover;
   final bool hasAttachment;
   final bool showBottomToolbar;
+  final Function(String) returnContent;
 
   FlutterSummernote(
       {Key key,
@@ -39,7 +40,8 @@ class FlutterSummernote extends StatefulWidget {
       this.customToolbar,
       this.customPopover,
       this.hasAttachment: false,
-      this.showBottomToolbar: true})
+      this.showBottomToolbar: true,
+      this.returnContent})
       : super(key: key);
 
   @override
@@ -206,12 +208,15 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
           setState(() {
             text = isi;
           });
+          if (widget.returnContent != null) {
+            widget.returnContent(text);
+          }
         });
   }
 
   Future<String> getText() async {
     await _controller.evaluateJavascript(
-        "GetTextSummernote.postMessage(document.getElementsByClassName('note-editable')[0].innerHTML);");
+        "setTimeout(function(){GetTextSummernote.postMessage(document.getElementsByClassName('note-editable')[0].innerHTML)}, 0);");
     return text;
   }
 
@@ -247,7 +252,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
 
   setHint(String text) {
     String hint = '\$(".note-placeholder").html("$text");';
-    _controller.evaluateJavascript(hint);
+    _controller.evaluateJavascript("setTimeout(function(){$hint}, 0);");
   }
 
   Widget widgetIcon(IconData icon, String title, {Function onTap}) {
