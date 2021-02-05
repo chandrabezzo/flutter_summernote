@@ -1,3 +1,6 @@
+## [0.2.3] - 2020-12-04
+* Add option to add custom popover
+
 ## [0.2.2] - 2020-12-04
 * Add option to show and hide attachments
 * Add option to show and hide bottom toolbar
