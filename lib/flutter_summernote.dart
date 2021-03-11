@@ -1,5 +1,6 @@
 library flutter_summernote;
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -19,19 +20,19 @@ import 'package:webview_flutter/webview_flutter.dart';
 * */
 
 class FlutterSummernote extends StatefulWidget {
-  final String value;
-  final double height;
-  final BoxDecoration decoration;
+  final String? value;
+  final double? height;
+  final BoxDecoration? decoration;
   final String widthImage;
-  final String hint;
-  final String customToolbar;
-  final String customPopover;
+  final String? hint;
+  final String? customToolbar;
+  final String? customPopover;
   final bool hasAttachment;
   final bool showBottomToolbar;
-  final Function(String) returnContent;
+  final Function(String)? returnContent;
 
   FlutterSummernote(
-      {Key key,
+      {Key? key,
       this.value,
       this.height,
       this.decoration,
@@ -49,12 +50,12 @@ class FlutterSummernote extends StatefulWidget {
 }
 
 class FlutterSummernoteState extends State<FlutterSummernote> {
-  WebViewController _controller;
+  WebViewController? _controller;
   String text = "";
-  String _page;
+  late String _page;
   final Key _mapKey = UniqueKey();
   final _imagePicker = ImagePicker();
-  bool _hasAttachment;
+  late bool _hasAttachment;
 
   void handleRequest(HttpRequest request) {
     try {
@@ -103,7 +104,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
                 _controller = webViewController;
                 final String contentBase64 =
                     base64Encode(const Utf8Encoder().convert(_page));
-                _controller.loadUrl('data:text/html;base64,$contentBase64');
+                _controller!.loadUrl('data:text/html;base64,$contentBase64');
               },
               javascriptMode: JavascriptMode.unrestricted,
               gestureNavigationEnabled: true,
@@ -123,7 +124,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
 
                 setFullContainer();
                 if (widget.value != null) {
-                  setText(widget.value);
+                  setText(widget.value!);
                 }
               },
             ),
@@ -156,9 +157,10 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
       Expanded(
         child: GestureDetector(
           onTap: () async {
-            ClipboardData data = await Clipboard.getData(Clipboard.kTextPlain);
+            ClipboardData data = await (Clipboard.getData(Clipboard.kTextPlain)
+                as FutureOr<ClipboardData>);
 
-            String txtIsi = data.text
+            String txtIsi = data.text!
                 .replaceAll("'", '\\"')
                 .replaceAll('"', '\\"')
                 .replaceAll("[", "\\[")
@@ -168,7 +170,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
                 .replaceAll("\r", " ")
                 .replaceAll('\r\n', " ");
             String txt = "\$('.note-editable').append( '" + txtIsi + "');";
-            _controller.evaluateJavascript(txt);
+            _controller!.evaluateJavascript(txt);
           },
           child: Row(
               children: <Widget>[Icon(Icons.content_paste), Text("Paste")],
@@ -209,13 +211,13 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
             text = isi;
           });
           if (widget.returnContent != null) {
-            widget.returnContent(text);
+            widget.returnContent!(text);
           }
         });
   }
 
   Future<String> getText() async {
-    await _controller.evaluateJavascript(
+    await _controller!.evaluateJavascript(
         "setTimeout(function(){GetTextSummernote.postMessage(document.getElementsByClassName('note-editable')[0].innerHTML)}, 0);");
     return text;
   }
@@ -234,30 +236,30 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
         "document.getElementsByClassName('note-editable')[0].innerHTML = '" +
             txtIsi +
             "';";
-    _controller.evaluateJavascript(txt);
+    _controller!.evaluateJavascript(txt);
   }
 
   setFullContainer() {
-    _controller.evaluateJavascript(
+    _controller!.evaluateJavascript(
         '\$("#summernote").summernote("fullscreen.toggle");');
   }
 
   setFocus() {
-    _controller.evaluateJavascript("\$('#summernote').summernote('focus');");
+    _controller!.evaluateJavascript("\$('#summernote').summernote('focus');");
   }
 
   setEmpty() {
-    _controller.evaluateJavascript("\$('#summernote').summernote('reset');");
+    _controller!.evaluateJavascript("\$('#summernote').summernote('reset');");
   }
 
-  setHint(String text) {
+  setHint(String? text) {
     String hint = '\$(".note-placeholder").html("$text");';
-    _controller.evaluateJavascript("setTimeout(function(){$hint}, 0);");
+    _controller!.evaluateJavascript("setTimeout(function(){$hint}, 0);");
   }
 
-  Widget widgetIcon(IconData icon, String title, {Function onTap}) {
+  Widget widgetIcon(IconData icon, String title, {Function? onTap}) {
     return InkWell(
-      onTap: onTap,
+      onTap: onTap as void Function()?,
       child: Row(
         children: <Widget>[
           Icon(
@@ -280,7 +282,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     );
   }
 
-  String _initPage(String customToolbar, String customPopover) {
+  String _initPage(String? customToolbar, String? customPopover) {
     String toolbar;
     if (customToolbar == null) {
       toolbar = _defaultToolbar;
@@ -388,7 +390,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
         });
   }
 
-  Future<File> _getImage(bool fromCamera) async {
+  Future<File?> _getImage(bool fromCamera) async {
     final picked = await _imagePicker.getImage(
         source: (fromCamera) ? ImageSource.camera : ImageSource.gallery);
     if (picked != null) {
@@ -406,6 +408,6 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
         "${base64Encode(imageBytes)}\" data-filename=\"$filename\">";
 
     String txt = "\$('.note-editable').append( '" + base64Image + "');";
-    _controller.evaluateJavascript(txt);
+    _controller!.evaluateJavascript(txt);
   }
 }
