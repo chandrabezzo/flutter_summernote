@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({@required this.title});
+
   final String title;
 
   @override
@@ -29,13 +30,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   GlobalKey<FlutterSummernoteState> _keyEditor = GlobalKey();
-  final _scaffoldState = GlobalKey<ScaffoldState>();
   String result = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldState,
       appBar: AppBar(
         title: Text(widget.title),
         elevation: 0,
@@ -43,10 +42,10 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             icon: Icon(Icons.save),
             onPressed: () async {
-              final value = await _keyEditor.currentState.getText();
-              _scaffoldState.currentState.showSnackBar(SnackBar(
+              final value = await _keyEditor.currentState?.getText();
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 duration: Duration(seconds: 5),
-                content: Text(value),
+                content: Text(value ?? "-"),
               ));
             },
           )
@@ -56,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: FlutterSummernote(
         hint: "Your text here...",
         key: _keyEditor,
-        hasAttachment: false,
+        hasAttachment: true,
         customToolbar: """
           [
             ['style', ['bold', 'italic', 'underline', 'clear']],

@@ -217,7 +217,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
   }
 
   Future<String> getText() async {
-    await _controller!.evaluateJavascript(
+    await _controller?.evaluateJavascript(
         "setTimeout(function(){GetTextSummernote.postMessage(document.getElementsByClassName('note-editable')[0].innerHTML)}, 0);");
     return text;
   }
