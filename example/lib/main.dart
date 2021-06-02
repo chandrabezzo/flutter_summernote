@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({@required this.title});
+  MyHomePage({required this.title});
 
   final String title;
 
@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             icon: Icon(Icons.save),
             onPressed: () async {
-              final value = await _keyEditor.currentState?.getText();
+              final value = (await _keyEditor.currentState?.getText());
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 duration: Duration(seconds: 5),
                 content: Text(value ?? "-"),
