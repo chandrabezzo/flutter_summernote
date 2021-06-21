@@ -92,7 +92,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.0"
+    version: "0.8.0+3"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -223,7 +223,7 @@ packages:
       name: webview_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.8"
 sdks:
   dart: ">=2.12.0 <3.0.0"
   flutter: ">=2.0.0"

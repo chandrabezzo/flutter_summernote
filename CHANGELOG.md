@@ -1,3 +1,6 @@
+## [1.0.0] - 2021-06-21
+* Support Null Safety
+
 ## [0.2.3] - 2020-12-04
 * Add option to add custom popover
 

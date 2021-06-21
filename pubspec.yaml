@@ -10,7 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  image_picker: ^0.8.0
+  webview_flutter: ^2.0.8
+  image_picker: ^0.8.0+3
+  path: ^1.8.0
   mime: ^1.0.0
   path: ^1.8.0
   webview_flutter: ^2.0.2
