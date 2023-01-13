@@ -13,6 +13,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+// Import for Android features.
+import 'package:webview_flutter_android/webview_flutter_android.dart';
+// Import for iOS features.
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
+
 /*
 * Created by: Chandra Abdul Fattah on 13 July 2020
 * Inspired from: https://github.com/xrb21/flutter-html-editor
@@ -50,12 +55,14 @@ class FlutterSummernote extends StatefulWidget {
 }
 
 class FlutterSummernoteState extends State<FlutterSummernote> {
-  WebViewController? _controller;
+
   String text = "";
   late String _page;
   final Key _mapKey = UniqueKey();
   final _imagePicker = ImagePicker();
   late bool _hasAttachment;
+
+  late final WebViewController? _webViewController;
 
   void handleRequest(HttpRequest request) {
     try {
@@ -73,12 +80,62 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
 
     _page = _initPage(widget.customToolbar, widget.customPopover);
     _hasAttachment = widget.hasAttachment;
+    
+    _webViewController  = WebViewController();
+
+    _webViewController!.setJavaScriptMode(JavaScriptMode.unrestricted);
+    _webViewController!.addJavaScriptChannel(
+        'GetTextSummernote',
+        onMessageReceived: (JavaScriptMessage message) {
+
+          String isi = message.message;
+          if (isi.isEmpty ||
+              isi == "<p></p>" ||
+              isi == "<p><br></p>" ||
+              isi == "<p><br/></p>") {
+            isi = "";
+          }
+          setState(() {
+            text = isi;
+          });
+          if (widget.returnContent != null) {
+            widget.returnContent!(text);
+          }
+        });
+
+    _webViewController!.setNavigationDelegate(
+        NavigationDelegate(
+            onPageFinished: (String url) {
+
+              if (widget.hint != null) {
+                setHint(widget.hint);
+              } else {
+                setHint("");
+              }
+
+              setFullContainer();
+              if (widget.value != null) {
+                setText(widget.value!);
+              }
+            }
+        )
+    );
+
+    if (_webViewController!.platform is WebKitWebViewController) {
+      (_webViewController!.platform as WebKitWebViewController)
+          .setAllowsBackForwardNavigationGestures(true);
+    }
+
+    final String contentBase64 = base64Encode(const Utf8Encoder().convert(_page));
+    _webViewController!.loadRequest(Uri.parse('data:text/html;base64,$contentBase64'));
+
   }
 
   @override
   void dispose() {
-    if (_controller != null) {
-      _controller = null;
+
+    if (_webViewController != null) {
+      _webViewController = null;
     }
     super.dispose();
   }
@@ -95,39 +152,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
       child: Column(
         children: <Widget>[
           Expanded(
-            child: WebView(
-              key: _mapKey,
-              onWebResourceError: (e) {
-                print("error ${e.description}");
-              },
-              onWebViewCreated: (webViewController) {
-                _controller = webViewController;
-                final String contentBase64 =
-                    base64Encode(const Utf8Encoder().convert(_page));
-                _controller!.loadUrl('data:text/html;base64,$contentBase64');
-              },
-              javascriptMode: JavascriptMode.unrestricted,
-              gestureNavigationEnabled: true,
-              gestureRecognizers: [
-                Factory(
-                    () => VerticalDragGestureRecognizer()..onUpdate = (_) {}),
-              ].toSet(),
-              javascriptChannels: <JavascriptChannel>[
-                getTextJavascriptChannel(context)
-              ].toSet(),
-              onPageFinished: (String url) {
-                if (widget.hint != null) {
-                  setHint(widget.hint);
-                } else {
-                  setHint("");
-                }
-
-                setFullContainer();
-                if (widget.value != null) {
-                  setText(widget.value!);
-                }
-              },
-            ),
+            child: WebViewWidget(key: _mapKey, controller: this._webViewController!),
           ),
           Visibility(
             visible: widget.showBottomToolbar,
@@ -170,7 +195,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
                 .replaceAll("\r", " ")
                 .replaceAll('\r\n', " ");
             String txt = "\$('.note-editable').append( '" + txtIsi + "');";
-            _controller!.evaluateJavascript(txt);
+            _webViewController!.runJavaScript(txt);
           },
           child: Row(
               children: <Widget>[Icon(Icons.content_paste), Text("Paste")],
@@ -196,28 +221,10 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     return _toolbar;
   }
 
-  JavascriptChannel getTextJavascriptChannel(BuildContext context) {
-    return JavascriptChannel(
-        name: 'GetTextSummernote',
-        onMessageReceived: (JavascriptMessage message) {
-          String isi = message.message;
-          if (isi.isEmpty ||
-              isi == "<p></p>" ||
-              isi == "<p><br></p>" ||
-              isi == "<p><br/></p>") {
-            isi = "";
-          }
-          setState(() {
-            text = isi;
-          });
-          if (widget.returnContent != null) {
-            widget.returnContent!(text);
-          }
-        });
-  }
+
 
   Future<String> getText() async {
-    await _controller?.evaluateJavascript(
+    await _webViewController?.runJavaScript(
         "setTimeout(function(){GetTextSummernote.postMessage(document.getElementsByClassName('note-editable')[0].innerHTML)}, 0);");
     return text;
   }
@@ -236,25 +243,25 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
         "document.getElementsByClassName('note-editable')[0].innerHTML = '" +
             txtIsi +
             "';";
-    _controller!.evaluateJavascript(txt);
+    _webViewController!.runJavaScript(txt);
   }
 
   setFullContainer() {
-    _controller!.evaluateJavascript(
+    _webViewController!.runJavaScript(
         '\$("#summernote").summernote("fullscreen.toggle");');
   }
 
   setFocus() {
-    _controller!.evaluateJavascript("\$('#summernote').summernote('focus');");
+    _webViewController!.runJavaScript("\$('#summernote').summernote('focus');");
   }
 
   setEmpty() {
-    _controller!.evaluateJavascript("\$('#summernote').summernote('reset');");
+    _webViewController!.runJavaScript("\$('#summernote').summernote('reset');");
   }
 
   setHint(String? text) {
     String hint = '\$(".note-placeholder").html("$text");';
-    _controller!.evaluateJavascript("setTimeout(function(){$hint}, 0);");
+    _webViewController!.runJavaScript("setTimeout(function(){$hint}, 0);");
   }
 
   Widget widgetIcon(IconData icon, String title, {Function? onTap}) {
@@ -408,6 +415,6 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
         "${base64Encode(imageBytes)}\" data-filename=\"$filename\">";
 
     String txt = "\$('.note-editable').append( '" + base64Image + "');";
-    _controller!.evaluateJavascript(txt);
+    _webViewController!.runJavaScript(txt);
   }
 }
