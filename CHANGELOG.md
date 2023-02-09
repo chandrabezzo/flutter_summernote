@@ -1,3 +1,6 @@
+## [1.1.0] - 2023-02-09
+* Support Null Safety
+
 ## [1.0.0] - 2021-06-21
 * Support Null Safety
 
