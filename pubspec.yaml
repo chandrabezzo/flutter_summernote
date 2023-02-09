@@ -4,7 +4,7 @@ description: Text Editor in Flutter for Android and iOS to help free write
 version: 1.1.1
 homepage: https://summernote.org
 repository: https://github.com/chandrabezzo/flutter_summernote
-documentation: https://summernote.org/deep-dive
+documentation: https://summernote.org
 issue_tracker: https://github.com/chandrabezzo/flutter_summernote/issues
 
 environment:

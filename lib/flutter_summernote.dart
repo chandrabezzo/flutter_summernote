@@ -146,6 +146,8 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     );
   }
 
+  /// Method [_generateBottomToolbar] to render bottom toolbar that declared
+  /// by user
   List<Widget> _generateBottomToolbar(BuildContext context) {
     var toolbar = [
       Expanded(
@@ -207,6 +209,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     return toolbar;
   }
 
+  /// Call [getText] to get current value from summernote form
   Future<String> getText() async {
     await _webViewController?.runJavaScript(
       'setTimeout(function(){GetTextSummernote.postMessage(document.'
@@ -215,7 +218,8 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     return text;
   }
 
-  setText(String v) async {
+  /// Call [setText] to set current value in summernote form
+  Future<void> setText(String v) async {
     String txtIsi = v
         .replaceAll("'", '\\"')
         .replaceAll('"', '\\"')
@@ -231,24 +235,29 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     _webViewController!.runJavaScript(txt);
   }
 
-  setFullContainer() {
+  /// [setFullContainer] to set full summernote form
+  void setFullContainer() {
     _webViewController!
         .runJavaScript('\$("#summernote").summernote("fullscreen.toggle");');
   }
 
-  setFocus() {
+  /// [setFocus] to focus summernote form
+  void setFocus() {
     _webViewController!.runJavaScript("\$('#summernote').summernote('focus');");
   }
 
-  setEmpty() {
+  /// [setEmpty] called to reset summmernote form
+  void setEmpty() {
     _webViewController!.runJavaScript("\$('#summernote').summernote('reset');");
   }
 
-  setHint(String? text) {
+  /// [setHint] to give placeholder
+  void setHint(String? text) {
     String hint = '\$(".note-placeholder").html("$text");';
     _webViewController!.runJavaScript('setTimeout(function(){$hint}, 0);');
   }
 
+  /// [widgetIcon] to simplify create a button icon with text
   Widget widgetIcon(IconData icon, String title, {Function? onTap}) {
     return InkWell(
       onTap: onTap as void Function()?,
@@ -274,6 +283,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     );
   }
 
+  /// [_initPage] to initial summernote form
   String _initPage(String? customToolbar, String? customPopover) {
     String toolbar;
     if (customToolbar == null) {
@@ -353,6 +363,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     ]
   """;
 
+  /// [_attach] to create attached button
   void _attach(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -382,6 +393,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
         });
   }
 
+  /// [_getImage] to get image from summernote
   Future<XFile?> _getImage(bool fromCamera) async {
     final picked = await _imagePicker.pickImage(
         source: (fromCamera) ? ImageSource.camera : ImageSource.gallery);
@@ -392,6 +404,7 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
     }
   }
 
+  /// [_addImage] to add image in summernote form
   void _addImage(XFile image) async {
     String filename = basename(image.path);
     List<int> imageBytes = await image.readAsBytes();
