@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   GlobalKey<FlutterSummernoteState> _keyEditor = GlobalKey();
-  String result = "";
+  String result = '';
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
               final value = (await _keyEditor.currentState?.getText());
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 duration: Duration(seconds: 5),
-                content: Text(value ?? "-"),
+                content: Text(value ?? '-'),
               ));
             },
           )
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       backgroundColor: Colors.white,
       body: FlutterSummernote(
-        hint: "Your text here...",
+        hint: 'Your text here...',
         key: _keyEditor,
         hasAttachment: true,
         customToolbar: """
