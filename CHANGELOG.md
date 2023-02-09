@@ -1,3 +1,6 @@
+## [1.1.1] - 2023-02-09
+* Remove Flutter Wkwebview
+
 ## [1.1.0] - 2023-02-09
 * Support Null Safety
 

@@ -10,9 +10,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-// Import for iOS features.
-import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
-
 /*
 * Created by: Chandra Abdul Fattah on 13 July 2020
 * Inspired from: https://github.com/xrb21/flutter-html-editor
@@ -108,11 +105,6 @@ class FlutterSummernoteState extends State<FlutterSummernote> {
         setText(widget.value!);
       }
     }));
-
-    if (_webViewController!.platform is WebKitWebViewController) {
-      (_webViewController!.platform as WebKitWebViewController)
-          .setAllowsBackForwardNavigationGestures(true);
-    }
 
     final String contentBase64 =
         base64Encode(const Utf8Encoder().convert(_page));
