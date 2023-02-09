@@ -10,14 +10,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  webview_flutter: ^2.0.8
-  image_picker: ^0.8.0+3
-  path: ^1.8.0
-  mime: ^1.0.0
-  path: ^1.8.0
-  webview_flutter: ^2.0.2
+  webview_flutter: ^4.0.2
+  image_picker: ^0.8.6+1
+  path: ^1.8.2
+  mime: ^1.0.4
+  cross_file: ^0.3.3+4
+  webview_flutter_wkwebview: ^3.0.5
 
 dev_dependencies:
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
 
