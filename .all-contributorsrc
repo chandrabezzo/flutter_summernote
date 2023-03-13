@@ -15,6 +15,15 @@
         "infra",
         "code"
       ]
+    },
+    {
+      "login": "afandiyusuf",
+      "name": "yusuf afandi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4621478?v=4",
+      "profile": "https://afandiyusuf.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
