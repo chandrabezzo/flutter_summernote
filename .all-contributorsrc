@@ -1,0 +1,26 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "chandrabezzo",
+      "name": "Chandra Abdul Fattah",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16184998?v=4",
+      "profile": "https://www.linkedin.com/in/chandra-abdul-fattah",
+      "contributions": [
+        "infra",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "flutter_summernote",
+  "projectOwner": "chandrabezzo"
+}
