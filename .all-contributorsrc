@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "JEuler",
+      "name": "Ivan Terekhin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/231950?v=4",
+      "profile": "https://www.upwork.com/freelancers/~01192eefd8a1c267f7",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "flutter_summernote",
+  "projectOwner": "chandrabezzo"
+}
