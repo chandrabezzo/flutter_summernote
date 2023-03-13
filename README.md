@@ -1,6 +1,6 @@
 # Flutter Summernote
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Text Editor in Flutter for Android and iOS to help free write WYSIWYG HTML code based on Summernote 0.8.18 javascript wrapper.
@@ -106,6 +106,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/chandra-abdul-fattah"><img src="https://avatars.githubusercontent.com/u/16184998?v=4?s=100" width="100px;" alt="Chandra Abdul Fattah"/><br /><sub><b>Chandra Abdul Fattah</b></sub></a><br /><a href="#infra-chandrabezzo" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/chandrabezzo/flutter_summernote/commits?author=chandrabezzo" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://afandiyusuf.com"><img src="https://avatars.githubusercontent.com/u/4621478?v=4?s=100" width="100px;" alt="yusuf afandi"/><br /><sub><b>yusuf afandi</b></sub></a><br /><a href="https://github.com/chandrabezzo/flutter_summernote/commits?author=afandiyusuf" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.upwork.com/freelancers/~01192eefd8a1c267f7"><img src="https://avatars.githubusercontent.com/u/231950?v=4?s=100" width="100px;" alt="Ivan Terekhin"/><br /><sub><b>Ivan Terekhin</b></sub></a><br /><a href="https://github.com/chandrabezzo/flutter_summernote/commits?author=JEuler" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
